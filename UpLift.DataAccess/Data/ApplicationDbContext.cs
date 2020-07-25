@@ -4,6 +4,9 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using UpLift.Models;
+using Microsoft.EntityFrameworkCore.Design;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace UpLift.DataAccess.Data
 {
@@ -16,4 +19,7 @@ namespace UpLift.DataAccess.Data
 
         public DbSet<Category> Category { get; set; }
     }
+
+   
+
 }

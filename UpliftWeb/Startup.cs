@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UpLift.DataAccess.Data;
+using UpLift.DataAccess.Data.Repository;
+using UpLift.DataAccess.Data.Repository.IRepository;
 
 namespace UpliftWeb
 {
@@ -35,7 +37,8 @@ namespace UpliftWeb
 
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -54,6 +57,9 @@ namespace UpliftWeb
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+
+   
 
             app.UseMvc(routes =>
             {
